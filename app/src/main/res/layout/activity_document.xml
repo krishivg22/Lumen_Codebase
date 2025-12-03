@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/doc_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    >
+
+    <!-- Camera preview (top half) -->
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewViewDoc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.48"/>
+    <ImageButton
+        android:id="@+id/btnBackDoc"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_media_previous"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!-- Offline badge (top-right) -->
+    <TextView
+        android:id="@+id/offlineBadge"
+        android:text="OFFLINE"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:background="#B00020"
+        android:textColor="#FFFFFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="12dp"/>
+    <!-- Small hint -->
+    <TextView
+        android:id="@+id/docHint"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="Align the single-page document inside the view and press Capture or Upload"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/previewViewDoc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Capture and Upload buttons centered below preview -->
+    <LinearLayout
+        android:id="@+id/capture_upload_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/docHint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+
+        <ImageButton
+            android:id="@+id/btnCaptureDoc"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@android:drawable/ic_menu_camera"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Capture Document"/>
+
+        <ImageButton
+            android:id="@+id/btnUploadDoc"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@android:drawable/ic_menu_upload"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Upload Document"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <!-- Page count and Select Page button for PDFs -->
+    <LinearLayout
+        android:id="@+id/pdf_info_row"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/capture_upload_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/tvPageCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pages: 0"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btnSelectPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Page"
+            android:layout_marginStart="12dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <!-- Small progress / status -->
+    <TextView
+        android:id="@+id/docStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="13sp"
+        android:alpha="0.9"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/pdf_info_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"/>
+
+    <!-- Feature buttons (hidden until OCR complete) -->
+    <LinearLayout
+        android:id="@+id/featurePanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintTop_toBottomOf="@id/docStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnReadAloud"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Read Aloud"
+            android:padding="12dp"/>
+
+        <Button
+            android:id="@+id/btnAskQueries"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Ask Queries"
+            android:padding="12dp"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        app:layout_constraintTop_toBottomOf="@id/featurePanel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Document text preview (scrollable) -->
+    <ScrollView
+        android:id="@+id/textPreviewScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/featurePanel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvDocText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="15sp"/>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
